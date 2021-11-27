@@ -9,7 +9,9 @@ async fn main() {
     loop {
         // the second item contains the IP and port of the new conection.
         let (socket, _) = listener.accept().await.unwrap();
-        process(socket).await;
+        tokio::spawn(async move {
+            process(socket).await;
+        });
     }
 }
 
